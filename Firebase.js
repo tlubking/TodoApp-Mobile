@@ -1,15 +1,6 @@
 import firebase from "firebase";
 import "@firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBLBZFMEeEl3BEY7BYBWRsyjPWuuBJDp1I",
-  authDomain: "todoapp-cffb9.firebaseapp.com",
-  databaseURL: "https://todoapp-cffb9.firebaseio.com",
-  projectId: "todoapp-cffb9",
-  storageBucket: "todoapp-cffb9.appspot.com",
-  messagingSenderId: "359905780490",
-  appId: "1:359905780490:web:181b96839ebf73c75b50f3",
-};
+import { firebase } from "./config.js";
 
 class Firebase {
   constructor(callback) {
@@ -17,7 +8,7 @@ class Firebase {
   }
   init(callback) {
     if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
+      firebase.initializeApp(config.firebase);
     }
 
     firebase.auth().onAuthStateChanged((user) => {
@@ -35,7 +26,7 @@ class Firebase {
   }
 
   getLists(callback) {
-    let ref = this.ref.orderBy('name')
+    let ref = this.ref.orderBy("name");
 
     this.unsubscribe = ref.onSnapshot((snapshot) => {
       lists = [];
@@ -48,15 +39,15 @@ class Firebase {
   }
 
   addList(list) {
-      let ref = this.ref
+    let ref = this.ref;
 
-      ref.add(list);
+    ref.add(list);
   }
 
   updateList(list) {
-      let ref = this.ref
+    let ref = this.ref;
 
-      ref.doc(list.id).update(list);
+    ref.doc(list.id).update(list);
   }
 
   get userId() {
@@ -64,7 +55,7 @@ class Firebase {
   }
 
   get ref() {
-      return firebase
+    return firebase
       .firestore()
       .collection("users")
       .doc(this.userId)
@@ -72,7 +63,7 @@ class Firebase {
   }
 
   detach() {
-      this.unsubscribe();
+    this.unsubscribe();
   }
 }
 
