@@ -19,8 +19,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    "description": "Create Todo Lists using a modal that allows for various color options. Add button on the list and swipe to delete functionality."
   }
 }
